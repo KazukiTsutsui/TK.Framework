@@ -1,0 +1,2202 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+Tk.Framework
+</name>
+</assembly>
+<members>
+<member name="T:Tk.Framework.NativeMethods">
+ <summary>
+ Win32API を定義します。
+ </summary>
+</member>
+<member name="M:Tk.Framework.NativeMethods.#ctor">
+ <summary>
+ NativeMethods クラスの新しいインスタンスを初期化します。
+ このクラスはインスタンス化を許可しません。
+ </summary>
+ <exception cref="T:System.NotSupportedException">このクラスをインスタンス化した際に発生します。</exception>
+</member>
+<member name="M:Tk.Framework.NativeMethods.GetWindowThreadProcessId(System.IntPtr,System.IntPtr)">
+ <summary>
+ 指定されたウィンドウを作成したスレッドの ID を取得します。必要であれば、ウィンドウを作成したプロセスの ID も取得できます。
+ </summary>
+ <param name="hWnd">ウィンドウのハンドルを指定します。</param>
+ <param name="ProcessId">
+ プロセス ID を受け取る変数へのポインタを指定します。
+ ポインタを指定すると、それが指す変数にプロセス ID がコピーされます。
+ null を指定した場合は、プロセス ID の取得は行われません。 </param>
+ <returns>ウィンドウを作成したスレッドの ID が返ります。</returns>
+</member>
+<member name="M:Tk.Framework.NativeMethods.GetForegroundWindow">
+ <summary>
+ フォアグラウンドウィンドウ（ 現在ユーザーが作業しているウィンドウ）のハンドルを返します。
+ Windows システムは、フォアグラウンドウィンドウを生成したスレッドに対して、他のスレッドよりも若干高い優先順位を割り当てます。
+ </summary>
+ <returns>
+ フォアグラウンドウィンドウのハンドルが返ります。
+ フォアグラウンドウィンドウのハンドルは、ウィンドウがフォーカスを失ったなどの
+ 特定の状況下で null になる場合もあります。
+ </returns>
+</member>
+<member name="M:Tk.Framework.NativeMethods.AttachThreadInput(System.Int32,System.Int32,System.Boolean)">
+ <summary>
+ 特定のスレッドの入力処理機構を別のスレッドにアタッチします。
+ </summary>
+ <param name="idAttach">
+ 別のスレッドにアタッチするスレッドの識別子を指定します。
+ システムスレッドをアタッチすることはできません。 </param>
+ <param name="idAttachTo">
+ アタッチ先スレッドの識別子を指定します。システムスレッドは指定できません。
+ スレッドをそれ自体にアタッチすることはできません。
+ そのため、idAttachTo と idAttach を同じにすることはできません。 
+ </param>
+ <param name="fAttach">
+ スレッドをアタッチするかデタッチするか指定します。
+ TRUE に設定すると、2 つのスレッドがアタッチされます。
+ FALSE に設定すると、スレッドがデタッチされます。 
+ </param>
+ <returns>
+ 関数が成功すると、0 以外の値が返ります。
+ 関数が失敗すると、0 が返ります。拡張エラー情報がないため、GetLastError 関数は使わないでください。
+ </returns>
+</member>
+<member name="T:Tk.Framework.ReflectionHelper">
+ <summary>
+ リフレクションに関する補助メソッド群を定義します。
+ このクラスは継承できません。
+ </summary>
+</member>
+<member name="M:Tk.Framework.ReflectionHelper.AllBindingFlags">
+ <summary>
+ 全ての型検索を表現する列挙値を取得します。
+ </summary>
+ <returns>全ての型検索を示す BindingFlags を返します。</returns>
+</member>
+<member name="M:Tk.Framework.ReflectionHelper.IsReadAndWriteProperty(System.Reflection.PropertyInfo)">
+ <summary>
+ プロパティが読み書き可能か否かを取得します。
+ </summary>
+ <param name="pi">プロパティ情報。</param>
+ <returns>True:読み書き可能。,False:読み書き不可。</returns>
+</member>
+<member name="M:Tk.Framework.ReflectionHelper.FindMethodIncludingBase(System.Type,System.String)">
+ <summary>
+ 指定した名前からメソッド情報を継承元まで再帰的に検索し、最初に見つかった情報を返します。
+ </summary>
+ <param name="target">対象の型。</param>
+ <param name="name">メソッド名。</param>
+ <returns>
+ MethodInfo クラスのインスタンス。
+ 見つからなかった場合は null を返します。
+ </returns>
+</member>
+<member name="M:Tk.Framework.ReflectionHelper.FindFieldIncludingBase(System.Type,System.String)">
+ <summary>
+ 指定した名前からフィールド情報を継承元まで再帰的に検索し、最初に見つかった情報を返します。
+ </summary>
+ <param name="target">対象の型。</param>
+ <param name="name">メソッド名。</param>
+ <returns>
+ FieldInfo クラスのインスタンス。
+ 見つからなかった場合は null を返します。
+ </returns>
+</member>
+<member name="T:Tk.Framework.ThrowHelper">
+ <summary>
+ 定型的な例外のスローを補助します。
+ このクラスは継承できません。
+ </summary>
+</member>
+<member name="M:Tk.Framework.ThrowHelper.#ctor">
+ <summary>
+ ThrowHelper クラスの新しいインスタンスを初期化します。
+ このクラスはインスタンス化を許可しません。
+ </summary>
+ <exception cref="T:System.NotSupportedException">このクラスをインスタンス化した際に発生します。</exception>
+</member>
+<member name="M:Tk.Framework.ThrowHelper.IfNullArgumentThenThrow``1(``0,System.String)">
+ <summary>
+ 引数が null 値だった場合に System.ArgumentNullException をスローします。
+ </summary>
+ <typeparam name="T">対象となる引数の型。</typeparam>
+ <param name="target">検査する引数。</param>
+ <param name="name">変数名。</param>
+ <exception cref="T:System.ArgumentNullException">引数が null だった場合にスローします。</exception>
+</member>
+<member name="M:Tk.Framework.ThrowHelper.IfStringOfArgumentnullThenThrow(System.String,System.String)">
+ <summary>
+ String 型の引数チェックを行います。
+ null 値の場合は ArgumentnullException をスローし、空文字の場合は ArgumentException をスローします。
+ </summary>
+ <param name="target">対象のインスタンス。</param>
+ <param name="name">変数名。</param>
+ <exception cref="T:System.ArgumentException">空文字だった場合にスローします。</exception>
+ <exception cref="T:System.ArgumentNullException">Nothing だった場合にスローします。</exception>
+</member>
+<member name="M:Tk.Framework.ThrowHelper.IfOutOfRangeThenThrow(System.Int32,System.Int32,System.Int32,System.String)">
+ <summary>
+ 引数が境界値を超えていた場合に System.ArgumentOutOfRangeException をスローします。
+ </summary>
+ <param name="min">最小値。</param>
+ <param name="max">最大値。</param>
+ <param name="index">インデックスとして渡された引数。</param>
+ <param name="name">変数名。</param>
+</member>
+<member name="M:Tk.Framework.ThrowHelper.IfIndexLessOfRangeArgumentThenThrow(System.Int32,System.Int32,System.String)">
+ <summary>
+ 引数が最大の境界値を超えていた場合に System.ArgumentOutOfRangeException をスローします。
+ </summary>
+ <param name="max">最大値。</param>
+ <param name="index">インデックスとして渡された引数。</param>
+ <param name="name">変数名。</param>
+</member>
+<member name="M:Tk.Framework.ThrowHelper.IfIndexGreaterOfRangeThenThrow(System.Int32,System.Int32,System.String)">
+ <summary>
+ 引数が最小の境界値を超えていた場合に System.ArgumentOutOfRangeException をスローします。
+ </summary>
+ <param name="min">最小値。</param>
+ <param name="index">インデックスとして渡された引数。</param>
+ <param name="name">変数名。</param>
+</member>
+<member name="M:Tk.Framework.ThrowHelper.IfMatchArgumentThenThrow``1(System.Predicate{``0},``0,System.String)">
+ <summary>
+ 述語に一致した場合、 System.ArgumentException をスローします。
+ </summary>
+ <typeparam name="T">型。</typeparam>
+ <param name="match">引数の評価式。</param>
+ <param name="param">引数。</param>
+ <param name="name">変数名。</param>
+</member>
+<member name="M:Tk.Framework.ThrowHelper.NotSupportedConstructer``1">
+ <summary>
+ インスタンス化を許可しないクラスのコンストラクタで System.NotSupportedException をスローします。
+ </summary>
+ <typeparam name="T">インスタンス化を許可しないクラスの型。</typeparam>
+ <exception cref="T:System.NotSupportedException">呼び出し時にスローします。</exception>
+</member>
+<member name="M:Tk.Framework.ThrowHelper.IfFileNotFoundThenThrow(System.String)">
+ <summary>
+ 指定したファイルが見つからない場合に System.IO.FileNotFoundException をスローします。
+ </summary>
+ <param name="path">ファイルパス。</param>
+</member>
+<member name="M:Tk.Framework.ThrowHelper.IfDirectoryNotFoundThenThrow(System.String)">
+ <summary>
+ 指定したディレクトリが見つからない場合に System.IO.DirectoryNotFoundException をスローします。
+ </summary>
+ <param name="path">ディレクトリパス。</param>
+</member>
+<member name="T:Tk.Framework.Components.CBLDataGridView">
+ <summary>
+ 
+ このクラスは継承できません。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Components.CBLDataGridView.#ctor">
+ <summary>
+ <c>CBLDataGridView</c> クラスの新しいインスタンスを初期化します。
+ </summary>
+</member>
+<member name="T:Tk.Framework.Components.DataGridViewCommander">
+ <summary>
+ 
+ このクラスは継承できません。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Components.DataGridViewCommander.#ctor">
+ <summary>
+ <c>DataGridViewCommander</c> クラスの新しいインスタンスを生成します。
+ </summary>
+</member>
+<member name="T:Tk.Framework.Components.HighLightSplitContainer">
+ <summary>
+ スプリッターに色の入った SplitContainer を定義します。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Components.HighLightSplitContainer.#ctor">
+ <summary>
+ HighLightSplitContainer クラスの新しいインスタンスを初期化します。
+ </summary>
+</member>
+<member name="P:Tk.Framework.Components.HighLightSplitContainer.SplitColor">
+ <summary>
+ スプリッターの色を取得または設定します。
+ </summary>
+ <value></value>
+ <returns></returns>
+</member>
+<member name="P:Tk.Framework.Components.HighLightSplitContainer.IsChangeSplitColor">
+ <summary>
+ スプリッターの色を変更するか否かを取得または設定します。
+ </summary>
+ <value></value>
+ <returns>True:設定します。,False:設定しません。</returns>
+</member>
+<member name="T:Tk.Framework.Components.ICblDataGridViewCellRangeSelection">
+ <summary>
+ 
+ </summary>
+</member>
+<member name="T:Tk.Framework.Extensions.ArrayExtensions">
+ <summary>
+ 配列の拡張メソッド群を定義します。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Extensions.ArrayExtensions.CountGreaterThen``1(``0[],System.Int32)">
+ <summary>
+ 要素数が指定した値より大きいか否かを取得します。
+ </summary>
+ <typeparam name="T">配列の型。</typeparam>
+ <param name="target">対象となる配列。</param>
+ <param name="value">比較対象となる数値。</param>
+ <returns>True:要素数が指定した数値より大きい。,False:要素数が指定した数値以下。</returns>
+</member>
+<member name="M:Tk.Framework.Extensions.ArrayExtensions.CountLessThen``1(``0[],System.Int32)">
+ <summary>
+ 要素数が指定した値より小さいか否かを取得します。
+ </summary>
+ <typeparam name="T">配列の型。</typeparam>
+ <param name="target">対象となる配列。</param>
+ <param name="value">比較対象となる数値。</param>
+ <returns>True:要素数が指定した数値より小さい。,False:要素数が指定した数値以上。</returns>
+</member>
+<member name="T:Tk.Framework.Extensions.BooleanExtensions">
+ <summary>
+ Boolean 型の拡張メソッド群を提供します。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Extensions.BooleanExtensions.IsFalse(System.Boolean)">
+ <summary>
+ 値が False か否かを取得します。
+ </summary>
+ <param name="target">対象の Boolen 型のインスタンス。</param>
+ <returns>True:False。,False:True。</returns>
+</member>
+<member name="T:Tk.Framework.Extensions.ByteExtensions">
+ <summary>
+ Byte 型の拡張メソッド群を提供します。
+ </summary>
+</member>
+<member name="T:Tk.Framework.Extensions.CharExtensions">
+ <summary>
+ Char 型の拡張メソッド群を提供します。
+ </summary>
+</member>
+<member name="T:Tk.Framework.Extensions.ControlsExtensions">
+ <summary>
+ ControlsExtensions 型の拡張メソッド群を提供します。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Extensions.ControlsExtensions.DisposeAll(System.Windows.Forms.Control.ControlCollection)">
+ <summary>
+ 子のコントロールを全て解放します。
+ </summary>
+ <param name="target"></param>
+</member>
+<member name="M:Tk.Framework.Extensions.ControlsExtensions.WhereFrom(System.Windows.Forms.Control.ControlCollection,System.Predicate{System.Windows.Forms.Control})">
+ <summary>
+ 述語に基づいてフィルタ処理済みの新しいインスタンスのシーケンスを返します。
+ </summary>
+ <param name="target"></param>
+ <param name="predicate"></param>
+ <returns></returns>
+</member>
+<member name="M:Tk.Framework.Extensions.ControlsExtensions.SelectFrom``1(System.Windows.Forms.Control.ControlCollection,System.Func{System.Windows.Forms.Control,``0})">
+ <summary>
+ 各要素を述語に基づいて射影したシーケンスを取得します。
+ 評価は実行時に行います。
+ </summary>
+ <typeparam name="TResult">戻り値の型。</typeparam>
+ <param name="target">対象となる ControlCollection のインスタンス。</param>
+ <param name="selector">要素を射影する述語。</param>
+ <returns>各要素を述語に基づいて射影したシーケンスを返します。</returns>
+</member>
+<member name="M:Tk.Framework.Extensions.ControlsExtensions.FirstOrDefault(System.Windows.Forms.Control.ControlCollection)">
+ <summary>
+ ControlCollection の最初の要素を取り出します。
+ ControlCollection に含まれていない場合は、既定の値を返します。
+ </summary>
+ <param name="target">対象のインスタンス。</param>
+ <returns>ControlCollection の最初の要素または既定の値を返します。</returns>
+</member>
+<member name="M:Tk.Framework.Extensions.ControlsExtensions.LastOrDefault(System.Windows.Forms.Control.ControlCollection)">
+ <summary>
+ ControlCollection の最後の要素を取り出します。
+ ControlCollection に含まれていない場合は、既定の値を返します。
+ </summary>
+ <param name="target">対象のインスタンス。</param>
+ <returns>ControlCollection の最後の要素または既定の値を返します。</returns>
+</member>
+<member name="M:Tk.Framework.Extensions.ControlsExtensions.First(System.Windows.Forms.Control.ControlCollection)">
+ <summary>
+ ControlCollection の最初の要素を取り出します。
+ </summary>
+ <param name="target">対象のインスタンス。</param>
+ <returns>ControlCollection の最初の要素を返します。</returns>
+ <exception cref="T:System.InvalidOperationException">ソースシーケンスが空の場合にスローします。</exception>
+</member>
+<member name="M:Tk.Framework.Extensions.ControlsExtensions.Last(System.Windows.Forms.Control.ControlCollection)">
+ <summary>
+ ControlCollection の最後の要素を取り出します。
+ </summary>
+ <param name="target">対象のインスタンス。</param>
+ <returns>ControlCollection の最後の要素を返します。</returns>
+ <exception cref="T:System.InvalidOperationException">ソースシーケンスが空の場合にスローします。</exception>
+</member>
+<member name="T:Tk.Framework.Extensions.ControlExtensions">
+ <summary>
+ Control 型の拡張メソッド群を提供します。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Extensions.ControlExtensions.GetAllControls(System.Windows.Forms.Control)">
+ <summary>
+ 自身を含む子のコントロールを全て取得します。
+ </summary>
+ <param name="target">対象のコントロール。</param>
+ <returns>自身を含む子のコントロールの配列。</returns>
+</member>
+<member name="T:Tk.Framework.Extensions.DecimalExtensions">
+ <summary>
+ Decimal 型の拡張メソッド群を提供します。
+ </summary>
+</member>
+<member name="T:Tk.Framework.Extensions.DoubleExtensions">
+ <summary>
+ Double 型の拡張メソッド群を提供します。
+ </summary>
+</member>
+<member name="T:Tk.Framework.Extensions.EnumExtensions">
+ <summary>
+ 列挙型の拡張メソッド群を提供します。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Extensions.EnumExtensions.GetAliasName(System.Enum)">
+ <summary>
+ 関連付けられた名前を取得します。
+ </summary>
+ <param name="source">対象となる列挙値。</param>
+ <returns>関連付けられた名前を返します。</returns>
+</member>
+<member name="M:Tk.Framework.Extensions.EnumExtensions.GetIdFromFieldIdLabel(System.Enum)">
+ <summary>
+ 関連付けられた ID を取得します。
+ </summary>
+ <param name="source">対象となる列挙値。</param>
+ <returns></returns>
+</member>
+<member name="M:Tk.Framework.Extensions.EnumExtensions.GetNameFromFieldIdLabel(System.Enum)">
+ <summary>
+ 関連付けられた ID を取得します。
+ </summary>
+ <param name="source">対象となる列挙値。</param>
+ <returns></returns>
+</member>
+<member name="M:Tk.Framework.Extensions.EnumExtensions.GetCustomeAttribute``1(System.Enum)">
+ <summary>
+ 列挙値と関連付いたカスタム属性を取得します。
+ </summary>
+ <typeparam name="TAttribute">カスタム属性の型。</typeparam>
+ <param name="source">対象となる列挙値。</param>
+ <returns>列挙値と関連付いたカスタム属性を返します。</returns>
+</member>
+<member name="M:Tk.Framework.Extensions.EnumExtensions.GetCustomeAttributes(System.Enum)">
+ <summary>
+ 列挙値と関連付いたカスタム属性の配列を取得します。
+ </summary>
+ <param name="source">対象となる列挙値。</param>
+ <returns>列挙値と関連付いたカスタム属性を返します。</returns>
+</member>
+<member name="T:Tk.Framework.Extensions.GenericExtensions">
+ <summary>
+ ジェネリックな型の拡張メソッド群を提供します。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Extensions.GenericExtensions.IsNull``1(``0)">
+ <summary>
+ 対象のインスタンスが null か否かを取得します。
+ </summary>
+ <typeparam name="T"></typeparam>
+ <param name="target"></param>
+ <returns>True:null 。,False:null でない。</returns>
+</member>
+<member name="M:Tk.Framework.Extensions.GenericExtensions.IsNotNull``1(``0)">
+ <summary>
+ 対象のインスタンスが null ではないか否かを取得します。
+ </summary>
+ <typeparam name="T"></typeparam>
+ <param name="target"></param>
+ <returns>True:null でない。,False:null 。</returns>
+</member>
+<member name="T:Tk.Framework.Extensions.ICollectionExtensions">
+ <summary>
+ ICollection 型の拡張メソッド群を提供します。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Extensions.ICollectionExtensions.CountGreaterThen(System.Collections.ICollection,System.Int32)">
+ <summary>
+ コレクションの要素数が対象の値より小さいか否かを取得します。
+ </summary>
+ <param name="target">要素数を比較するコレクション。</param>
+ <param name="value">比較する値。</param>
+ <returns>True:要素数より小さい。,False:要素数以上。</returns>
+</member>
+<member name="M:Tk.Framework.Extensions.ICollectionExtensions.CountLessThen(System.Collections.ICollection,System.Int32)">
+ <summary>
+ コレクションの要素数が対象の値より大きいか否かを取得します。
+ </summary>
+ <param name="target">要素数を比較するコレクション。</param>
+ <param name="value">比較する値。</param>
+ <returns>True:要素数より大きい。,False:要素数以下。</returns>
+</member>
+<member name="M:Tk.Framework.Extensions.ICollectionExtensions.CountGreaterThen``1(System.Collections.Generic.ICollection{``0},System.Int32)">
+ <summary>
+ コレクションの要素数が対象の値より小さいか否かを取得します。
+ </summary>
+ <param name="target">要素数を比較するコレクション。</param>
+ <param name="value">比較する値。</param>
+ <returns>True:要素数より小さい。,False:要素数以上。</returns>
+</member>
+<member name="M:Tk.Framework.Extensions.ICollectionExtensions.CountLessThen``1(System.Collections.Generic.ICollection{``0},System.Int32)">
+ <summary>
+ コレクションの要素数が対象の値より大きいか否かを取得します。
+ </summary>
+ <param name="target">要素数を比較するコレクション。</param>
+ <param name="value">比較する値。</param>
+ <returns>True:要素数より大きい。,False:要素数以下。</returns>
+</member>
+<member name="T:Tk.Framework.Extensions.IDisposableExtensions">
+ <summary>
+ IDisposable クラスの拡張メソッド群を提供します。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Extensions.IDisposableExtensions.NotNullThenDispose(System.IDisposable)">
+ <summary>
+ null でない場合に破棄します。
+ </summary>
+ <param name="target"></param>
+</member>
+<member name="T:Tk.Framework.Extensions.IEnumerableOfStringExtensions">
+ <summary>
+ IEnumerable(Of String) 型の拡張メソッド群を提供します。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Extensions.IEnumerableOfStringExtensions.Join(System.Collections.Generic.IEnumerable{System.String},System.String)">
+ <summary>
+ シーケンスの文字列を結合した値を取得します。
+ </summary>
+ <param name="target">IEnumerable(Of String) 型のインスタンス。</param>
+ <param name="splitter">区切り文字。</param>
+ <returns>シーケンスの文字列を結合した値を返します。</returns>
+</member>
+<member name="M:Tk.Framework.Extensions.IEnumerableOfStringExtensions.GetValueCapacity(System.Collections.Generic.IEnumerable{System.String})">
+ <summary>
+ 格納文字列の合計容量を取得します。
+ </summary>
+ <param name="target">対象のインスタンス。</param>
+ <returns>格納文字列の合計容量を System.Integet で返します。</returns>
+ <exception cref="T:System.OverflowException"> 2147483647 を超える場合は、OverflowException がスローされます。</exception>
+</member>
+<member name="T:Tk.Framework.Extensions.IEnumerableOfTExtensions">
+ <summary>
+ IEnumerable 型の拡張メソッド群を提供します。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Extensions.IEnumerableOfTExtensions.FindIndexies``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0})">
+ <summary>
+ 述語と一致する全ての要素のインデックスを取得します。
+ </summary>
+ <typeparam name="T">型。</typeparam>
+ <param name="target">対象となるインスタンス。</param>
+ <param name="match">検索条件となる述語。</param>
+ <returns>述語と一致する全て要素のインデックスを返します。</returns>
+</member>
+<member name="M:Tk.Framework.Extensions.IEnumerableOfTExtensions.AsReadOnly``1(System.Collections.Generic.IEnumerable{``0})">
+ <summary>
+ 現在のシーケンスの汎用的な読み取り専用のコレクションを取得します。
+ </summary>
+ <typeparam name="T">要素の型。</typeparam>
+ <param name="target">対象のシーケンス。</param>
+ <returns>新しい汎用的な読み取り専用のコレクションを返します。。</returns>
+</member>
+<member name="M:Tk.Framework.Extensions.IEnumerableOfTExtensions.FindIndex``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0})">
+ <summary>
+ 指定された述語と一致する要素のインデックスを取得します。
+ </summary>
+ <typeparam name="T"></typeparam>
+ <param name="target"></param>
+ <param name="match"></param>
+ <returns></returns>
+</member>
+<member name="T:Tk.Framework.Extensions.IntegerExtensions">
+ <summary>
+ Integer 型の拡張メソッド群を提供します。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Extensions.IntegerExtensions.Reverse(System.Int32)">
+ <summary>
+ 正負を逆転させた System.Integer のインスタンスを取得します。
+ </summary>
+ <param name="target"></param>
+ <returns></returns>
+</member>
+<member name="M:Tk.Framework.Extensions.IntegerExtensions.Increment(System.Int32@)">
+ <summary>
+ インスタンスに 1 の整数を加算します。
+ </summary>
+ <param name="target"></param>
+</member>
+<member name="M:Tk.Framework.Extensions.IntegerExtensions.Decrement(System.Int32@)">
+ <summary>
+ インスタンスから 1 の整数を減算します。
+ </summary>
+ <param name="target"></param>
+</member>
+<member name="M:Tk.Framework.Extensions.IntegerExtensions.Increment(System.Int32@,System.Int32)">
+ <summary>
+ インスタンスに指定した数値分を加算します。
+ </summary>
+ <param name="target"></param>
+ <param name="value"></param>
+</member>
+<member name="M:Tk.Framework.Extensions.IntegerExtensions.Decrement(System.Int32@,System.Int32)">
+ <summary>
+ インスタンスに指定した数値分を減算します。
+ </summary>
+ <param name="target"></param>
+ <param name="value"></param>
+</member>
+<member name="T:Tk.Framework.Extensions.LongExtensions">
+ <summary>
+ Integer 型の拡張メソッド群を提供します。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Extensions.LongExtensions.Increment(System.Int64@)">
+ <summary>
+ インスタンスに 1 の整数を加算します。
+ </summary>
+ <param name="target"></param>
+</member>
+<member name="M:Tk.Framework.Extensions.LongExtensions.Decrement(System.Int64@)">
+ <summary>
+ インスタンスから 1 の整数を減算します。
+ </summary>
+ <param name="target"></param>
+</member>
+<member name="M:Tk.Framework.Extensions.LongExtensions.Increment(System.Int64@,System.Int64)">
+ <summary>
+ インスタンスに指定した数値分を加算します。
+ </summary>
+ <param name="target"></param>
+ <param name="value"></param>
+</member>
+<member name="M:Tk.Framework.Extensions.LongExtensions.Decrement(System.Int64@,System.Int64)">
+ <summary>
+ インスタンスに指定した数値分を減算します。
+ </summary>
+ <param name="target"></param>
+ <param name="value"></param>
+</member>
+<member name="T:Tk.Framework.Extensions.ObjectExtensions">
+ <summary>
+ Object 型の拡張メソッド群を提供します。
+ </summary>
+</member>
+<member name="T:Tk.Framework.Extensions.ShortExtensions">
+ <summary>
+ Short 型の拡張メソッド群を提供します。
+ </summary>
+</member>
+<member name="T:Tk.Framework.Extensions.StringBuilderExtensions">
+ <summary>
+ System.Text.StringBuilder の拡張メソッド群を提供します。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Extensions.StringBuilderExtensions.ClearString(System.Text.StringBuilder,System.Int32)">
+ <summary>
+ 格納されている文字列を全て削除し、容量を新たに設定します。
+ </summary>
+ <param name="target">対象のインスタンス。</param>
+ <param name="capacity">容量。</param>
+</member>
+<member name="M:Tk.Framework.Extensions.StringBuilderExtensions.AppendFormatAndLine(System.Text.StringBuilder,System.String,System.String)">
+ <summary>
+ 0 個以上の書式指定を含んでいる書式付き文字列と既定の行終端記号をこのインスタンスに追加します。
+ 各書式指定は、対応するオブジェクト引数の文字列形式に置換されます。
+ </summary>
+ <param name="target">対象のインスタンス。</param>
+ <param name="format">複合書式指定文字列。</param>
+ <param name="arg0">書式指定するオブジェクト。</param>
+ <returns> format が追加されたこのインスタンスへの参照。format の書式指定は、対応するオブジェクト引数の文字列形式に置換されます。</returns>
+</member>
+<member name="M:Tk.Framework.Extensions.StringBuilderExtensions.AppendFormatAndLine(System.Text.StringBuilder,System.String,System.String,System.String)">
+ <summary>
+ 0 個以上の書式指定を含んでいる書式付き文字列と既定の行終端記号をこのインスタンスに追加します。
+ 各書式指定は、対応するオブジェクト引数の文字列形式に置換されます。
+ </summary>
+ <param name="target">対象のインスタンス。</param>
+ <param name="format">複合書式指定文字列。</param>
+ <param name="arg0">書式指定する第 1 オブジェクト。</param>
+ <param name="arg1">書式指定する第 2 オブジェクト。</param>
+ <returns> format が追加されたこのインスタンスへの参照。format の書式指定は、対応するオブジェクト引数の文字列形式に置換されます。</returns>
+</member>
+<member name="M:Tk.Framework.Extensions.StringBuilderExtensions.AppendFormatAndLine(System.Text.StringBuilder,System.String,System.String,System.String,System.String)">
+ <summary>
+ 0 個以上の書式指定を含んでいる書式付き文字列と既定の行終端記号をこのインスタンスに追加します。
+ 各書式指定は、対応するオブジェクト引数の文字列形式に置換されます。
+ </summary>
+ <param name="target">対象のインスタンス。</param>
+ <param name="format">複合書式指定文字列。</param>
+ <param name="arg0">書式指定する第 1 オブジェクト。</param>
+ <param name="arg1">書式指定する第 2 オブジェクト。</param>
+ <param name="arg2">書式指定する第 3 オブジェクト。</param>
+ <returns> format が追加されたこのインスタンスへの参照。format の書式指定は、対応するオブジェクト引数の文字列形式に置換されます。</returns>
+</member>
+<member name="M:Tk.Framework.Extensions.StringBuilderExtensions.AppendFormatAndLine(System.Text.StringBuilder,System.String,System.String[])">
+ <summary>
+ 0 個以上の書式指定を含んでいる書式付き文字列と既定の行終端記号をこのインスタンスに追加します。
+ 各書式指定は、対応するオブジェクト引数の文字列形式に置換されます。
+ </summary>
+ <param name="target">対象のインスタンス。</param>
+ <param name="format">複合書式指定文字列。</param>
+ <param name="args">書式指定するオブジェクトの配列。</param>
+ <returns>
+  format が追加されたこのインスタンスへの参照。
+  format の書式指定は、対応するオブジェクト引数の文字列形式に置換されます。
+ </returns>
+</member>
+<member name="M:Tk.Framework.Extensions.StringBuilderExtensions.AppendFormatAndLine(System.Text.StringBuilder,System.IFormatProvider,System.String,System.Object[])">
+ <summary>
+ 0 個以上の書式指定を含んでいる書式付き文字列と既定の行終端記号をこのインスタンスに追加します。
+ 各書式指定は、対応するオブジェクト引数の文字列形式に置換されます。
+ </summary>
+ <param name="target">対象のインスタンス。</param>
+ <param name="provider">カルチャ固有の書式情報を提供する System.IFormatProvider 。</param>
+ <param name="format">複合書式指定文字列。</param>
+ <param name="args">書式指定するオブジェクトの配列。</param>
+ <returns>
+  format が追加されたこのインスタンスへの参照。
+  format の書式指定は、対応するオブジェクト引数の文字列形式に置換されます。
+ </returns>
+</member>
+<member name="T:Tk.Framework.Extensions.StringExtensions">
+ <summary>
+ String 型の拡張メソッド群を提供します。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Extensions.StringExtensions.SplitLine(System.String,System.StringSplitOptions)">
+ <summary>
+ 文字列を改行毎に区切った配列を返します。
+ </summary>
+ <param name="target">対象とする文字列。</param>
+ <param name="splitOptions">空の文字列を含めるかどうか。</param>
+ <returns>改行毎に区切られた配列。</returns>
+</member>
+<member name="M:Tk.Framework.Extensions.StringExtensions.ReplaceMany(System.String,System.Collections.Generic.IEnumerable{System.String},System.String)">
+ <summary>
+ 複数の置換対象文字列を新しい文字列に置き換えます。
+ </summary>
+ <param name="target">対象となる文字列。</param>
+ <param name="oldChars">古い文字列の配列。</param>
+ <param name="newChar">新しい文字列。</param>
+ <returns>対象文字列を置き換えた新しい文字列。</returns>
+</member>
+<member name="T:Tk.Framework.Utility.ActionScope`1">
+ <summary>
+ 特定の動作のスコープを実装します。
+ </summary>
+ <typeparam name="T">対象となる型。</typeparam>
+</member>
+<member name="P:Tk.Framework.Utility.ActionScope`1.IsBegined">
+ <summary>
+ 初期化処理を実行済みか否かを取得します。
+ </summary>
+</member>
+<member name="P:Tk.Framework.Utility.ActionScope`1.Target">
+ <summary>
+ スコープを定義する対象を取得します。
+ </summary>
+ <value></value>
+ <returns></returns>
+</member>
+<member name="M:Tk.Framework.Utility.ActionScope`1.#ctor(`0)">
+ <summary>
+ ActionScope クラスの新しいインスタンスを初期化します。
+ </summary>
+ <param name="target">スコープを定義する対象。</param>
+ <exception cref="T:System.ArgumentNullException">スコープ処理の対象となる引数が null の場合にスローします。</exception>
+</member>
+<member name="M:Tk.Framework.Utility.ActionScope`1.BeginAction">
+ <summary>
+ 開始処理を試みます。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Utility.ActionScope`1.CanAction">
+ <summary>
+ 一連の動作を実行可能か否かを取得します。
+ </summary>
+ <returns>True:実行できます。,False:実行できません。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.ActionScope`1.BeginScopeInternal">
+ <summary>
+ スコープ開始時の動作を実行します。
+ </summary>
+ <returns>True:正常に実行。,False:実行不可。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.ActionScope`1.EndScopeInternal">
+ <summary>
+ スコープ終了時の動作を実行します。
+ </summary>
+ <returns>True:正常に実行。,False:実行不可。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.ActionScope`1.Terminate">
+ <summary>
+ 終了処理を実行します。
+  GC によるメモリの解放は行いません。
+ </summary>
+</member>
+<member name="T:Tk.Framework.Utility.ActionScope`2">
+ <summary>
+ 特定の動作のスコープを実装します。
+ </summary>
+ <typeparam name="T">対象となる型。</typeparam>
+ <typeparam name="TParam">引数として渡されるインスタンスの型。</typeparam>
+</member>
+<member name="P:Tk.Framework.Utility.ActionScope`2.IsBegined">
+ <summary>
+ 初期化処理を実行済みか否かを取得します。
+ </summary>
+</member>
+<member name="P:Tk.Framework.Utility.ActionScope`2.Target">
+ <summary>
+ スコープを定義する対象を取得します。
+ </summary>
+ <value></value>
+ <returns></returns>
+</member>
+<member name="P:Tk.Framework.Utility.ActionScope`2.ConstructParam">
+ <summary>
+ インスタンス生成時のパラメータを保存します。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Utility.ActionScope`2.#ctor(`0,`1)">
+ <summary>
+ ActionScope クラスの新しいインスタンスを初期化します。
+ </summary>
+ <param name="target">スコープを定義する対象。</param>
+ <param name="param">初期化に必要なパラメータ。</param>
+ <exception cref="T:System.ArgumentNullException">スコープ処理の対象となる引数が null の場合にスローします。</exception>
+</member>
+<member name="M:Tk.Framework.Utility.ActionScope`2.TryAction">
+ <summary>
+ 開始処理を試みます。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Utility.ActionScope`2.CanAction">
+ <summary>
+ 一連の動作を実行可能か否かを取得します。
+ </summary>
+ <returns>True:実行できます。,False:実行できません。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.ActionScope`2.EndScopeInternal">
+ <summary>
+ スコープの終了処理を実行します。
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Tk.Framework.Utility.ActionScope`2.Terminate">
+ <summary>
+ 終了処理を実行します。
+  GC によるメモリの解放は行いません。
+ </summary>
+</member>
+<member name="T:Tk.Framework.Utility.AggregationScope">
+ <summary>
+ スコープの集合を定義します。
+ </summary>
+</member>
+<member name="T:Tk.Framework.Utility.CharPair">
+ <summary>
+ 文字の開始文字と終端文字がペアとなっている単純な形式を表します。
+ </summary>
+</member>
+<member name="P:Tk.Framework.Utility.CharPair.Start">
+ <summary>
+ 開始文字。
+ </summary>
+ <value></value>
+ <returns></returns>
+</member>
+<member name="P:Tk.Framework.Utility.CharPair.End">
+ <summary>
+ 終端文字。
+ </summary>
+ <value></value>
+ <returns></returns>
+</member>
+<member name="M:Tk.Framework.Utility.CharPair.#ctor(System.Char,System.Char)">
+ <summary>
+ StringPair クラスの新しいインスタンスを初期化します。
+ </summary>
+ <param name="start">開始文字。</param>
+ <param name="end">終端文字。</param>
+</member>
+<member name="M:Tk.Framework.Utility.CharPair.IsPair(System.String)">
+ <summary>
+ 指定した文字列の最初と最後が、現在のインスタンスのフォーマットと一致するか否かを取得します。
+ </summary>
+ <param name="value">検査する文字列。</param>
+ <returns>True:一致する。,False:一致しない。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.CharPair.IsPair(System.String,System.StringComparison)">
+ <summary>
+ 指定した文字列の最初と最後が、現在のインスタンスのフォーマットと一致するか否かを取得します。
+ </summary>
+ <param name="value">検査する文字列。</param>
+ <param name="comparison">比較演算子。</param>
+ <returns>True:一致する。,False:一致しない。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.CharPair.ContainsPair(System.String)">
+ <summary>
+ 指定した文字列に、現在のインスタンスのフォーマットが含まれるか否かを取得します。
+ </summary>
+ <param name="value">検査する文字列。</param>
+ <returns>True:含む。,False:含まない。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.CharPair.ContainsPair(System.String,System.StringComparison)">
+ <summary>
+ 指定した文字列に、現在のインスタンスのフォーマットが含まれるか否かを取得します。
+ </summary>
+ <param name="value">検査する文字列。</param>
+ <param name="comparison">比較演算子。</param>
+ <returns>True:含む。,False:含まない。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.CharPair.Extraction(System.String)">
+ <summary>
+ 文字列の開始文字と終端文字のペアを含む書式内の文字列を返します。
+ ペアが含まれていない場合、空文字を返します。
+ </summary>
+ <param name="value"></param>
+ <returns></returns>
+</member>
+<member name="T:Tk.Framework.Utility.ClassService">
+ <summary>
+ クラスのインスタンスに対する横断的なメソッド群を提供します。
+ このクラスは継承できません。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Utility.ClassService.#ctor">
+ <summary>
+ ClassService クラスの新しいインスタンスを初期化します。
+ このクラスはインスタンス化を許可しません。
+ </summary>
+ <exception cref="T:System.NotSupportedException">このクラスをインスタンス化した際に発生します。</exception>
+</member>
+<member name="M:Tk.Framework.Utility.ClassService.InitializeStringFields``1(``0)">
+ <summary>
+ 対象のクラスの String 型のフィールド全てを空文字で初期化します。
+ </summary>
+ <param name="target">対象のインスタンス。</param>
+</member>
+<member name="M:Tk.Framework.Utility.ClassService.DefaultAt``1">
+ <summary>
+ 型の規定値を返します。
+ C# の Default ステートメントと同義の動作を実行します。
+ </summary>
+ <typeparam name="T">型。</typeparam>
+ <returns>規定値。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.ClassService.IsNullOrEmptyInStrings(System.Collections.Generic.IEnumerable{System.String})">
+ <summary>
+ System.String の配列に null または System.String.Empty 文字列が含まれているか否かを取得します。
+ </summary>
+ <param name="target">System.String の配列。</param>
+ <returns>True:含まれている。,False:含まれていない。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.ClassService.IsNullOrEmptyInStrings(System.String[])">
+ <summary>
+ System.String の配列に null または System.String.Empty 文字列が含まれているか否かを取得します。
+ </summary>
+ <param name="target">System.String の配列。</param>
+ <returns>True:含まれている。,False:含まれていない。</returns>
+</member>
+<member name="T:Tk.Framework.Utility.CollectionService">
+ <summary>
+ 
+ このクラスは継承できません。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Utility.CollectionService.#ctor">
+ <summary>
+ <c></c> クラスの新しいインスタンスを生成します。
+ </summary>
+</member>
+<member name="T:Tk.Framework.Utility.ControlAssist.CheckBoxSnapShot">
+ <summary>
+ CheckBox クラスのスナップショットを提供します。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Utility.ControlAssist.CheckBoxSnapShot.#ctor(System.Windows.Forms.CheckBox)">
+ <summary>
+ CheckBoxSnapShot クラスの新しいインスタンスを初期化します。
+ </summary>
+ <param name="target">対象とする CheckBox 。</param>
+ <remarks></remarks>
+</member>
+<member name="T:Tk.Framework.Utility.ControlAssist.CheckedListBoxSnapShot`1">
+ <summary>
+ CheckedListBox のスナップショット機能を提供します。
+ </summary>
+ <typeparam name="TItem"></typeparam>
+</member>
+<member name="M:Tk.Framework.Utility.ControlAssist.CheckedListBoxSnapShot`1.#ctor(System.Windows.Forms.CheckedListBox)">
+ <summary>
+ CheckedListBoxSnapShot クラスの新しいインスタンスを初期化します。
+ 既定の演算子を用いて比較します。
+ </summary>
+ <param name="target">対象となる CheckedListBox 。</param>
+</member>
+<member name="M:Tk.Framework.Utility.ControlAssist.CheckedListBoxSnapShot`1.#ctor(System.Windows.Forms.CheckedListBox,System.Collections.Generic.IEqualityComparer{`0[]})">
+ <summary>
+ CheckedListBoxSnapShot クラスの新しいインスタンスを初期化します。
+ </summary>
+ <param name="target">対象となる CheckedListBox 。</param>
+ <param name="comparer">比較演算子。</param>
+</member>
+<member name="T:Tk.Framework.Utility.ControlAssist.CheckedListBoxSnapShot`1.DefaultComparer">
+ <summary>
+ CheckedListBoxSnapShot クラスの既定の比較演算子を提供します。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Utility.ControlAssist.CheckedListBoxSnapShot`1.DefaultComparer.#ctor(System.Collections.Generic.IEqualityComparer{`0})">
+ <summary>
+ DefaultComparer クラスの新しいインスタンスを初期化します。
+ </summary>
+ <param name="elementComparer">要素の比較演算子。</param>
+</member>
+<member name="T:Tk.Framework.Utility.ControlAssist.ComboBoxSelectedTextSnapShot">
+ <summary>
+ ComboBox の選択テキストのスナップショット機能を提供します。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Utility.ControlAssist.ComboBoxSelectedTextSnapShot.#ctor(System.Windows.Forms.ComboBox)">
+ <summary>
+ ComboBoxSnapShot クラスの新しいインスタンスを初期化します。
+ 選択テキストを大小区別して比較します。
+ </summary>
+ <param name="target">対象の ComboBox 。</param>
+</member>
+<member name="M:Tk.Framework.Utility.ControlAssist.ComboBoxSelectedTextSnapShot.#ctor(System.Windows.Forms.ComboBox,System.StringComparer)">
+ <summary>
+ ComboBoxSnapShot クラスの新しいインスタンスを初期化します。
+ </summary>
+ <param name="target">対象の ComboBox 。</param>
+ <param name="comparer">選択テキストの比較演算子。</param>
+</member>
+<member name="T:Tk.Framework.Utility.ControlAssist.ComboBoxItemSnapShot`1">
+ <summary>
+ ComboBox の選択アイテムのスナップショット機能を提供します。
+ </summary>
+ <typeparam name="TParam"></typeparam>
+</member>
+<member name="M:Tk.Framework.Utility.ControlAssist.ComboBoxItemSnapShot`1.#ctor(System.Windows.Forms.ComboBox)">
+ <summary>
+ ComboBoxItemSnapShot(Of TParam) クラスの新しいインスタンスを初期化します。
+ 選択オブジェクトを既定の演算子で比較します。
+ </summary>
+ <param name="target">対象の ComboBox 。</param>
+</member>
+<member name="M:Tk.Framework.Utility.ControlAssist.ComboBoxItemSnapShot`1.#ctor(System.Windows.Forms.ComboBox,System.Collections.Generic.IEqualityComparer{`0})">
+ <summary>
+ ComboBoxItemSnapShot(Of TParam) クラスの新しいインスタンスを初期化します。
+ </summary>
+ <param name="target">対象の ComboBox 。</param>
+ <param name="comparer"></param>
+ <remarks></remarks>
+</member>
+<member name="T:Tk.Framework.Utility.ControlAssist.ControlActionScope`1">
+ <summary>
+ コントロールの変更に関するスコープを定義します。
+ </summary>
+ <typeparam name="T">コントロール。</typeparam>
+</member>
+<member name="M:Tk.Framework.Utility.ControlAssist.ControlActionScope`1.#ctor(`0)">
+ <summary>
+ ControlScope クラスの新しいインスタンスを初期化します。
+ </summary>
+ <param name="target">対象のコントロール。</param>
+</member>
+<member name="M:Tk.Framework.Utility.ControlAssist.ControlActionScope`1.BeginScopeInternal">
+ <summary>
+ スコープ開始時の動作を取得します。
+ </summary>
+ <returns>True:正常に実行。,False:実行不可。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.ControlAssist.ControlActionScope`1.EndScopeInternal">
+ <summary>
+ スコープ終了時の動作を取得します。
+ </summary>
+ <returns>True:正常に実行。,False:実行不可。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.ControlAssist.ControlActionScope`1.CanAction">
+ <summary>
+ コントロールの動作を実行可能か否かを取得します。
+ </summary>
+ <returns>True:実行可能。,False:実行不可。</returns>
+</member>
+<member name="T:Tk.Framework.Utility.ControlAssist.ControlActionScope`2">
+ <summary>
+ コントロールの変更に関するスコープを定義します。
+ </summary>
+ <typeparam name="T">コントロール。</typeparam>
+</member>
+<member name="M:Tk.Framework.Utility.ControlAssist.ControlActionScope`2.#ctor(`0,`1)">
+ <summary>
+ ControlScope クラスの新しいインスタンスを初期化します。
+ </summary>
+ <param name="target">対象のコントロール。</param>
+ <param name="params">初期化子。</param>
+</member>
+<member name="M:Tk.Framework.Utility.ControlAssist.ControlActionScope`2.BeginScopeInternal">
+ <summary>
+ スコープ開始時の動作を取得します。
+ </summary>
+ <returns>True:正常に実行。,False:実行不可。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.ControlAssist.ControlActionScope`2.EndScopeInternal">
+ <summary>
+ スコープ終了時の動作を取得します。
+ </summary>
+ <returns>True:正常に実行。,False:実行不可。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.ControlAssist.ControlActionScope`2.CanAction">
+ <summary>
+ コントロールの動作を実行可能か否かを取得します。
+ </summary>
+ <returns>True:実行可能。,False:実行不可。</returns>
+</member>
+<member name="T:Tk.Framework.Utility.ControlAssist.ControlHelper">
+ <summary>
+ コントロールの操作に関する横断的な関数群を提供します。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Utility.ControlAssist.ControlHelper.#ctor">
+ <summary>
+ <c>ControlHelper</c> クラスの新しいインスタンスを初期化します。
+ このクラスはインスタンス化を許可しません。
+ </summary>
+ <exception cref="T:System.NotSupportedException">このクラスをインスタンス化した際に発生します。</exception>
+</member>
+<member name="M:Tk.Framework.Utility.ControlAssist.ControlHelper.IsAlive(System.Windows.Forms.Control)">
+ <summary>
+ 対象のコントロールが、操作可能か否かを取得します。
+ </summary>
+ <param name="target">対象のコントロール。</param>
+ <returns></returns>
+</member>
+<member name="M:Tk.Framework.Utility.ControlAssist.ControlHelper.DisposeSafe(System.Windows.Forms.Control)">
+ <summary>
+ コントロールのインスタンスが存在し破棄されていない場合に、コントロールを破棄します。
+ </summary>
+ <param name="target">対象のコントロール。</param>
+</member>
+<member name="T:Tk.Framework.Utility.ControlAssist.CursorScope">
+ <summary>
+ カーソル変更のスコープを定義します。
+ </summary>
+</member>
+<member name="F:Tk.Framework.Utility.ControlAssist.CursorScope._scopeInCursor">
+ <summary>
+ スコープ内のカーソル。
+ </summary>
+</member>
+<member name="F:Tk.Framework.Utility.ControlAssist.CursorScope._saveCursor">
+ <summary>
+ 対象の最初のカーソル。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Utility.ControlAssist.CursorScope.#ctor(System.Windows.Forms.Control)">
+ <summary>
+ CursorScope クラスの新しいインスタンスを初期化します。
+ </summary>
+ <param name="target">待ち状態の対象とするコントロール。</param>
+</member>
+<member name="M:Tk.Framework.Utility.ControlAssist.CursorScope.#ctor(System.Windows.Forms.Control,System.Windows.Forms.Cursor)">
+ <summary>
+ CursorScope クラスの新しいインスタンスを初期化します。
+ </summary>
+ <param name="target">対象のコントロール。</param>
+ <param name="scopeInCursor">対象スコープ内のカーソル。</param>
+</member>
+<member name="M:Tk.Framework.Utility.ControlAssist.CursorScope.BeginScopeInternal">
+ <summary>
+ スコープを開始します。
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Tk.Framework.Utility.ControlAssist.CursorScope.EndScopeInternal">
+ <summary>
+ スコープを終了します。
+ </summary>
+ <returns></returns>
+</member>
+<member name="T:Tk.Framework.Utility.ControlAssist.EnabledScope">
+ <summary>
+ コントロールのEnabledの切替のスコープを定義します。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Utility.ControlAssist.EnabledScope.#ctor(System.Windows.Forms.Control)">
+ <summary>
+ EnabledScope クラスの新しいインスタンスを初期化します。
+ </summary>
+ <param name="target">対象のコントロール。</param>
+</member>
+<member name="M:Tk.Framework.Utility.ControlAssist.EnabledScope.#ctor(System.Windows.Forms.Control,System.Boolean)">
+ <summary>
+ EnabledScope クラスの新しいインスタンスを初期化します。
+ </summary>
+ <param name="target">対象のコントロール。</param>
+ <param name="scopeInEnabled">スコープ内の Enabled 。</param>
+</member>
+<member name="T:Tk.Framework.Utility.ControlAssist.LayoutLogicInAllChildrenScope">
+ <summary>
+ 対象の子コントロールを含む全てのレイアウトロジックのスコープを定義します。
+ このクラスは継承できません。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Utility.ControlAssist.LayoutLogicInAllChildrenScope.#ctor(System.Windows.Forms.Control)">
+ <summary>
+ LayoutLogicScope クラスの新しいインスタンスを初期化します。
+ </summary>
+ <param name="target">対象のコントロール。</param>
+</member>
+<member name="M:Tk.Framework.Utility.ControlAssist.LayoutLogicInAllChildrenScope.#ctor(System.Windows.Forms.Control,System.Boolean)">
+ <summary>
+ LayoutLogicScope クラスの新しいインスタンスを初期化します。
+ </summary>
+ <param name="target">対象のコントロール。</param>
+ <param name="performLayout">保留中のレイアウトの要求を実行する場合は true。それ以外の場合は false。</param>
+</member>
+<member name="T:Tk.Framework.Utility.ControlAssist.LayoutLogicScope">
+ <summary>
+ コントロールのレイアウトロジックのスコープを定義します。
+ このクラスは継承できません。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Utility.ControlAssist.LayoutLogicScope.#ctor(System.Windows.Forms.Control)">
+ <summary>
+ LayoutLogicScope クラスの新しいインスタンスを初期化します。
+ </summary>
+ <param name="target">対象のコントロール。</param>
+</member>
+<member name="M:Tk.Framework.Utility.ControlAssist.LayoutLogicScope.#ctor(System.Windows.Forms.Control,System.Boolean)">
+ <summary>
+ LayoutLogicScope クラスの新しいインスタンスを初期化します。
+ </summary>
+ <param name="target">対象のコントロール。</param>
+ <param name="performLayout">保留中のレイアウトの要求を実行する場合は true。それ以外の場合は false。</param>
+</member>
+<member name="T:Tk.Framework.Utility.ControlAssist.RadioButtonSnapShot">
+ <summary>
+ RadioButton のスナップショット機能を提供します。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Utility.ControlAssist.RadioButtonSnapShot.#ctor(System.Windows.Forms.RadioButton)">
+ <summary>
+ RadioButtonSnapShot クラスの新しいインスタンスを初期化します。
+ </summary>
+ <param name="target">対象の RadioButton 。</param>
+</member>
+<member name="T:Tk.Framework.Utility.ControlAssist.TextBoxSnapShot">
+ <summary>
+ TextBox のテキストの値を保存します。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Utility.ControlAssist.TextBoxSnapShot.#ctor(System.Windows.Forms.TextBox)">
+ <summary>
+ TextBoxSnapShot クラスの新しいインスタンスを初期化します。
+ テキストを大小区別して比較します。
+ </summary>
+ <param name="target">対象となる TextBox 。</param>
+</member>
+<member name="M:Tk.Framework.Utility.ControlAssist.TextBoxSnapShot.#ctor(System.Windows.Forms.TextBox,System.StringComparer)">
+ <summary>
+ TextBoxSnapShot クラスの新しいインスタンスを初期化します。
+ </summary>
+ <param name="target">対象となる TextBox 。</param>
+ <param name="comparer">文字列の比較演算子。</param>
+</member>
+<member name="T:Tk.Framework.Utility.ControlAssist.UpdateScopeFactory">
+ <summary>
+ コントロールの描画停止処理のスコープを定義します。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Utility.ControlAssist.UpdateScopeFactory.#ctor">
+ <summary>
+ BeginUpdateScopeFactory クラスの新しいインスタンスを初期化します。
+ このクラスは、インスタンス化を許可しません。
+ </summary>
+ <exception cref="T:System.NotSupportedException">このクラスをインスタンス化した際に発生します。</exception>
+</member>
+<member name="M:Tk.Framework.Utility.ControlAssist.UpdateScopeFactory.Create(System.Windows.Forms.Control)">
+ <summary>
+ Control クラスの描画処理のスコープを取得します。
+ </summary>
+ <param name="target">描画処理を行うコントロール。</param>
+ <returns>描画処理のスコープを返します。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.ControlAssist.UpdateScopeFactory.Create(System.Windows.Forms.ComboBox)">
+ <summary>
+ ComboBox クラスの描画処理のスコープを取得します。
+ </summary>
+ <param name="target">描画処理を行う ComboBox 。</param>
+ <returns>描画処理のスコープを返します。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.ControlAssist.UpdateScopeFactory.Create(System.Windows.Forms.ListView)">
+ <summary>
+ ListView クラスの描画処理のスコープを取得します。
+ </summary>
+ <param name="target">描画処理を行う ListView 。</param>
+ <returns>描画処理のスコープを返します。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.ControlAssist.UpdateScopeFactory.Create(System.Windows.Forms.ListBox)">
+ <summary>
+ ListBox クラスの描画処理のスコープを取得します。
+ </summary>
+ <param name="target">描画処理を行う ListBox 。</param>
+ <returns>描画処理のスコープを返します。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.ControlAssist.UpdateScopeFactory.Create(System.Windows.Forms.TreeView)">
+ <summary>
+ TreeView クラスの描画処理のスコープを取得します。
+ </summary>
+ <param name="target">描画処理を行う TreeView 。</param>
+ <returns>描画処理のスコープを返します。</returns>
+</member>
+<member name="T:Tk.Framework.Utility.ControlAssist.UpdateScopeFactory.ComboBoxUpdateInternal">
+ <summary>
+ ComboBox の描画処理のスコープを定義します。
+ このクラスは継承できません。
+ </summary>
+</member>
+<member name="T:Tk.Framework.Utility.ControlAssist.UpdateScopeFactory.ListViewUpdateInternal">
+ <summary>
+ ListView の描画処理のスコープを定義します。
+ このクラスは継承できません。
+ </summary>
+</member>
+<member name="T:Tk.Framework.Utility.ControlAssist.UpdateScopeFactory.ListBoxUpdateInternal">
+ <summary>
+ ListBox の描画処理のスコープを定義します。
+ このクラスは継承できません。
+ </summary>
+</member>
+<member name="T:Tk.Framework.Utility.ControlAssist.UpdateScopeFactory.TreeViewUpdateInternal">
+ <summary>
+ TreeView の描画処理のスコープを定義します。
+ このクラスは継承できません。
+ </summary>
+</member>
+<member name="T:Tk.Framework.Utility.ControlAssist.UpdateScopeFactory.ControlUpdateInternal">
+ <summary>
+ Control の描画処理のスコープを定義します。
+ このクラスは継承できません。
+ </summary>
+</member>
+<member name="T:Tk.Framework.Utility.ControlAssist.VisibleScope">
+ <summary>
+ 
+ このクラスは継承できません。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Utility.ControlAssist.VisibleScope.#ctor">
+ <summary>
+ <c></c> クラスの新しいインスタンスを生成します。
+ </summary>
+</member>
+<member name="T:Tk.Framework.Utility.DateFormats.DateFormat">
+ <summary>
+ 日付のフォーマットを定義します。
+ </summary>
+</member>
+<member name="T:Tk.Framework.Utility.DateFormats.DatePeriod">
+ <summary>
+ 日付の期間を表します。
+ </summary>
+</member>
+<member name="P:Tk.Framework.Utility.DateFormats.DatePeriod.StartDate">
+ <summary>
+ 期間の開始日を取得します。
+ </summary>
+ <value></value>
+ <returns></returns>
+</member>
+<member name="P:Tk.Framework.Utility.DateFormats.DatePeriod.EndDate">
+ <summary>
+ 期間の終了日を取得します。
+ </summary>
+ <value></value>
+ <returns></returns>
+</member>
+<member name="M:Tk.Framework.Utility.DateFormats.DatePeriod.#ctor(System.DateTime,System.DateTime)">
+ <summary>
+ DatePeriod クラスの新しいインスタンスを初期化します。
+ </summary>
+ <param name="startDate">開始日。</param>
+ <param name="endDate">終了日。</param>
+</member>
+<member name="M:Tk.Framework.Utility.DateFormats.DatePeriod.#ctor(System.String,System.String,System.Converter{System.String,System.DateTime})">
+ <summary>
+ DatePeriod クラスの新しいインスタンスを初期化します。
+ </summary>
+ <param name="startDate">開始日を表す文字列。</param>
+ <param name="endDate">終了日を表す文字列。</param>
+ <param name="converter">文字列を日付に変換するコンバーター。</param>
+</member>
+<member name="M:Tk.Framework.Utility.DateFormats.DatePeriod.SafeNew(System.DateTime,System.DateTime)">
+ <summary>
+ 安全に DatePeriod クラスの新しいインスタンスを初期化します。
+ 開始日が終了日より後日に設定されている場合は、開始日と終了日を同日に設定します。
+ </summary>
+ <param name="startDate">開始日。</param>
+ <param name="endDate">終了日。</param>
+ <returns> DatePeriod クラスの新しいインスタンスを取得します。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.DateFormats.DatePeriod.ValidatePeriod(System.DateTime,System.DateTime)">
+ <summary>
+ 開始日と終了日の期間が正常に設定されているか否かを取得します。
+ </summary>
+ <param name="startDate">開始日。</param>
+ <param name="endDate">終了日。</param>
+ <returns>True:正常に設定されている。,False:設定されていない。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.DateFormats.DatePeriod.Contains(System.DateTime)">
+ <summary>
+ 期間内に存在する日付か否かを取得します。
+ </summary>
+ <param name="target">比較対象の日付。</param>
+ <returns>True:期間内。,False:期間外</returns>
+</member>
+<member name="M:Tk.Framework.Utility.DateFormats.DatePeriod.MoveDay(System.Double)">
+ <summary>
+ 指定した日数分、期間を進めます。
+ </summary>
+ <param name="day">進める日数。</param>
+ <returns>追加操作が完了した後のこのインスタンスへの参照。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.DateFormats.DatePeriod.MoveYear(System.Int32)">
+ <summary>
+ 指定した年数分、期間を進めます。
+ </summary>
+ <param name="year">進める年数。</param>
+ <returns>追加操作が完了した後のこのインスタンスへの参照。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.DateFormats.DatePeriod.MoveMonth(System.Int32)">
+ <summary>
+ 指定した月数分、期間を進めます。
+ </summary>
+ <param name="month">進める月数。</param>
+ <returns>追加操作が完了した後のこのインスタンスへの参照。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.DateFormats.DatePeriod.Contains(System.DateTime,System.DateTime,System.DateTime)">
+ <summary>
+ 指定した期間内に対象の日付が含まれるか否かを取得します。
+ </summary>
+ <param name="startYmd">開始日。</param>
+ <param name="endYmd">終了日。</param>
+ <param name="target">確認する日付。</param>
+ <returns>True:期間内。,False:期間外</returns>
+</member>
+<member name="M:Tk.Framework.Utility.DateFormats.StringDateFormatter.CanConvert(System.String)">
+ <summary>
+ 対象の文字列が既定のフォーマットで渡されているか否かを取得します。
+ </summary>
+ <param name="target">対象文字列。</param>
+ <returns> True :既定の文字列と一致する。, False :既定の文字列と一致しない。</returns>
+</member>
+<member name="T:Tk.Framework.Utility.Documents.IRtfBuilder">
+ <summary>
+ RTF 作成機能を定義します。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Utility.Documents.IRtfBuilder.ToString">
+ <summary>
+ RTF 形式の文字列を取得します。
+ </summary>
+ <returns> RTF 形式の文字列を返します。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.Documents.IRtfBuilder.Clear">
+ <summary>
+ 文字列をクリアします。
+ </summary>
+</member>
+<member name="T:Tk.Framework.Utility.Documents.RtfBuilder">
+ <summary>
+ RTF 形式の文字列を作成する機能を提供します。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Utility.Documents.RtfBuilder.#ctor(System.Drawing.Font,System.Drawing.Color)">
+ <summary>
+ RtfBuilder クラスの新しいインスタンスを初期化します。
+ </summary>
+ <param name="defFont">通常使用するフォント。</param>
+ <param name="defColor">通常使用する文字色。</param>
+</member>
+<member name="M:Tk.Framework.Utility.Documents.RtfBuilder.ToString">
+ <summary>
+ RTF形式の文字列を返します。
+ </summary>
+ <returns></returns>
+</member>
+<member name="T:Tk.Framework.Utility.EnumCustomAttributeCache">
+ <summary>
+ 列挙値に関連付くカスタム属性インスタンスのキャッシュ機能を提供します。
+ インスタンス取得から明示的な解放を実行するまで、同一のインスタンスを保持します。
+ </summary>
+</member>
+<member name="F:Tk.Framework.Utility.EnumCustomAttributeCache.AttributeCache">
+ <summary>
+ キャッシュ。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Utility.EnumCustomAttributeCache.#ctor">
+ <summary>
+ EnumCustomAttributeCache クラスの新しいインスタンスを初期化します。
+ このクラスはインスタンス化できません。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Utility.EnumCustomAttributeCache.GetSyncRoot">
+ <summary>
+ キャッシュの同期オブジェクトを取得します。
+ </summary>
+ <returns>キャッシュの排他制御オブジェクト。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.EnumCustomAttributeCache.Acquire``1(System.Enum)">
+ <summary>
+ カスタム属性を取得します。
+ 取得したカスタム属性のインスタンスは、解放を実行するまで同一のインスタンスが保持されます。
+ </summary>
+ <typeparam name="T">カスタム属性の型。</typeparam>
+ <param name="source">カスタム属性と関連付く列挙値。</param>
+ <returns>カスタム属性を返します。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.EnumCustomAttributeCache.AcquireAll(System.Enum)">
+ <summary>
+ 全てのカスタム属性を取得します。
+ 取得したカスタム属性のインスタンスは、解放時まで保持されます。
+ </summary>
+ <param name="source">カスタム属性と関連付く列挙値。</param>
+ <returns>関連付く全てのカスタム属性を返します。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.EnumCustomAttributeCache.GetElement(System.Enum)">
+ <summary>
+ 列挙値と紐付く、既存または新しい AttrHash のインスタンスを取得します。
+ 排他制御はかけないため、呼び出し側でロックする必要があります。
+ </summary>
+ <param name="source">対象の列挙値。</param>
+ <returns>列挙値と紐付く、既存または新しい AttrHash のインスタンス。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.EnumCustomAttributeCache.Remove``1(System.Enum)">
+ <summary>
+ 列挙値と紐付く属性を削除します。
+ </summary>
+ <typeparam name="T">属性の型。</typeparam>
+ <param name="source">列挙値。</param>
+ <returns>True:削除成功。,False:削除失敗。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.EnumCustomAttributeCache.Release">
+ <summary>
+ 取得した属性のキャッシュを全てクリアします。
+ 属性を再度インスタンス化するコストを考慮して使用してください。
+ </summary>
+</member>
+<member name="T:Tk.Framework.Utility.EnumCustomAttributeCache.AttrHash">
+ <summary>
+ 型指定が面倒なので。
+ </summary>
+</member>
+<member name="T:Tk.Framework.Utility.EnumerableSetvice">
+ <summary>
+ IEnumerable または IEnumerable(Of T) を実装したインスタンスの静的な補助メソッドを提供します。
+ このクラスは継承できません。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Utility.EnumerableSetvice.#ctor">
+ <summary>
+ <c>EnumerableHelper</c> クラスの新しいインスタンスを生成します。
+ </summary>
+</member>
+<member name="T:Tk.Framework.Utility.Events.EventDatum`1">
+ <summary>
+ イベント情報を表します。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Utility.Events.EventDatum`1.#ctor(`0)">
+ <summary>
+ EventDatum クラスの新しいインスタンスを初期化します。
+ </summary>
+ <param name="target">イベント情報を取得するインスタンス。</param>
+</member>
+<member name="T:Tk.Framework.Utility.Events.IEventDatum">
+ <summary>
+ イベント情報を定義します。
+ </summary>
+</member>
+<member name="T:Tk.Framework.Utility.Events.StandardEventAddHandlerScope`1">
+ <summary>
+ Windows 標準のコンポーネントで発生するイベントのスコープを表します。
+ </summary>
+ <typeparam name="T"></typeparam>
+</member>
+<member name="M:Tk.Framework.Utility.Events.StandardEventAddHandlerScope`1.#ctor(`0,System.String)">
+ <summary>
+ WindowsEventAddHandlerScope クラスの新しいインスタンスを初期化します。
+ </summary>
+ <param name="target">対象となるコンポーネント。</param>
+ <param name="eventName">イベント名。</param>
+</member>
+<member name="T:Tk.Framework.Utility.Events.StandardEventRemoveHandlerScope`1">
+ <summary>
+ Windows 標準のコンポーネントで抑制するイベントのスコープを表します。
+ </summary>
+ <typeparam name="T">コンポーネント。</typeparam>
+</member>
+<member name="M:Tk.Framework.Utility.Events.StandardEventRemoveHandlerScope`1.#ctor(`0,System.String)">
+ <summary>
+ WindowsEventRemoveHandlerScope クラスの新しいインスタンスを初期化します。
+ </summary>
+ <param name="target">対象となるコンポーネント。</param>
+ <param name="eventName">イベント名。</param>
+</member>
+<member name="T:Tk.Framework.Utility.Events.WindowsEventDatum`1">
+ <summary>
+ Windows 標準のコンポーネントに関するイベント情報を表します。
+ </summary>
+</member>
+<member name="F:Tk.Framework.Utility.Events.WindowsEventDatum`1._eventHandlerList">
+ <summary>
+ ターゲットの EventHandlerList を格納します。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Utility.Events.WindowsEventDatum`1.GetEvents">
+ <summary>
+ 対象の EventHandlerList を取得します。
+ </summary>
+ <returns>EventHandlerList を返します。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.Events.WindowsEventDatum`1.AddHandler(System.String)">
+ <summary>
+ イベント名からイベントを追加します。
+ </summary>
+ <param name="name">イベント名。</param>
+</member>
+<member name="M:Tk.Framework.Utility.Events.WindowsEventDatum`1.RemoveHandler(System.String)">
+ <summary>
+ イベント名から、現在関連付けられているデリゲートを削除します。
+ </summary>
+ <param name="name">イベント名。</param>
+</member>
+<member name="M:Tk.Framework.Utility.Events.WindowsEventDatum`1.GetEventKey(System.String)">
+ <summary>
+ イベント名からイベントのキーを取得します。
+ </summary>
+ <param name="eventName">イベント名。</param>
+ <returns>イベントのキー。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.Events.WindowsEventDatum`1.GetEventHandlerCore(System.String)">
+ <summary>
+ イベントハンドラのキーとそのペアとなるデリゲートインスタンスを取得します。
+ </summary>
+ <param name="name">イベント名。</param>
+ <returns>イベントハンドラのキーとそのペアとなるデリゲートインスタンス。</returns>
+</member>
+<member name="T:Tk.Framework.Utility.Events.WindowsEventDatum`1.KeyDelegatePair">
+ <summary>
+ EventHandlerList の要素を表現します。
+ </summary>
+</member>
+<member name="F:Tk.Framework.Utility.Events.WindowsEventDatum`1.KeyDelegatePair.Method">
+ <summary>
+ イベントのデリゲート。
+ </summary>
+</member>
+<member name="F:Tk.Framework.Utility.Events.WindowsEventDatum`1.KeyDelegatePair.Key">
+ <summary>
+ イベントのキー。
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="T:Tk.Framework.Utility.FieldIdLabelAttribute">
+ <summary>
+ フィールドの名前とそのペアになる ID を定義します。
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="P:Tk.Framework.Utility.FieldIdLabelAttribute.Name">
+ <summary>
+ 名前を取得します。
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:Tk.Framework.Utility.FieldIdLabelAttribute.Id">
+ <summary>
+ ID を取得します。
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Tk.Framework.Utility.FieldIdLabelAttribute.#ctor(System.String,System.String)">
+ <summary>
+ FieldIdLabelAttribute クラスの新しいインスタンスを初期化します。
+ </summary>
+ <param name="name">名前。</param>
+ <param name="id"> ID 。</param>
+</member>
+<member name="M:Tk.Framework.Utility.FieldIdLabelAttribute.ToString">
+ <summary>
+ 名前と ID の連結文字列を取得します。
+ </summary>
+ <returns>名前と ID をコンマ区切りで連結した System.String 。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.FieldIdLabelAttribute.ToString(System.String)">
+ <summary>
+ 名前と ID を指定文字列で連結文字列を取得します。
+ </summary>
+ <returns>名前と ID を指定された区切り文字で連結した System.String 。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.FieldIdLabelAttribute.GetInstanseFromId``1(System.String)">
+ <summary>
+ 列挙値に割り振られた ID を大小区別して比較し、関連付けられた FieldIdLabelAttribute のインスタンスを取得します。
+ </summary>
+ <typeparam name="TEnum">列挙値の型。</typeparam>
+ <param name="id"> ID 。</param>
+ <returns>関連付けられた FieldIdLabelAttribute のインスタンスを返します。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.FieldIdLabelAttribute.GetInstanseFromId``1(System.String,System.StringComparer)">
+ <summary>
+ 列挙値に割り振られた ID から、関連付けられた最初に見つかった FieldIdLabelAttribute のインスタンスを取得します。
+ </summary>
+ <typeparam name="TEnum">列挙値の型。</typeparam>
+ <param name="id"> ID 。</param>
+ <param name="comparer"> StringComparer から派生した比較演算子。</param>
+ <returns>関連付けられた FieldIdLabelAttribute のインスタンスを返します。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.FieldIdLabelAttribute.GetEnumFromId``1(System.String)">
+ <summary>
+ 列挙値に割り振られた ID を大小区別して比較し、関連付けられた列挙値 TEnum のインスタンスを取得します。
+ </summary>
+ <typeparam name="TEnum">列挙値の型。</typeparam>
+ <param name="id"> ID 。</param>
+ <returns>関連付けられた列挙値 TEnum のインスタンスを返します。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.FieldIdLabelAttribute.GetEnumFromId``1(System.String,System.StringComparer)">
+ <summary>
+ 列挙値に割り振られた ID から、関連付けられた列挙値 TEnum のインスタンスを取得します。
+ </summary>
+ <typeparam name="TEnum">列挙値の型。</typeparam>
+ <param name="id"> ID 。</param>
+ <param name="comparer"> StringComparer から派生した比較演算子。</param>
+ <returns>関連付けられた列挙値 TEnum のインスタンスを返します。</returns>
+</member>
+<member name="T:Tk.Framework.Utility.FieldLabelAttribute">
+ <summary>
+ フィールド名を定義します。
+ </summary>
+</member>
+<member name="P:Tk.Framework.Utility.FieldLabelAttribute.Name">
+ <summary>
+ フィールド名を取得します。
+ </summary>
+ <value></value>
+ <returns></returns>
+</member>
+<member name="M:Tk.Framework.Utility.FieldLabelAttribute.#ctor(System.String)">
+ <summary>
+ FieldLabelAttribute クラスの新しいインスタンスを初期化します。
+ </summary>
+ <param name="name">名前を指定します。</param>
+</member>
+<member name="T:Tk.Framework.Utility.IActionScope">
+ <summary>
+ 対となっている動作のスコープを定義します。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Utility.IActionScope.BeginAction">
+ <summary>
+ 開始を試みます。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Utility.IActionScope.CanAction">
+ <summary>
+ コントロールの動作を実行可能か否かを取得します。
+ </summary>
+ <returns>True:実行可能。,False:実行不可。</returns>
+</member>
+<member name="P:Tk.Framework.Utility.IActionScope.IsBegined">
+ <summary>
+ 開始済みか否かを取得します。
+ </summary>
+ <value>True:開始済み。,False:開始していない。</value>
+</member>
+<member name="T:Tk.Framework.Utility.IntegerPair">
+ <summary>
+ System.Integer の幅を表します。
+ </summary>
+</member>
+<member name="P:Tk.Framework.Utility.IntegerPair.Start">
+ <summary>
+ 開始数値。
+ </summary>
+ <value></value>
+ <returns></returns>
+</member>
+<member name="P:Tk.Framework.Utility.IntegerPair.End">
+ <summary>
+ 終端数値。
+ </summary>
+ <value></value>
+ <returns></returns>
+</member>
+<member name="M:Tk.Framework.Utility.IntegerPair.Abs">
+ <summary>
+ 幅の間隔を返します。
+ </summary>
+ <returns></returns>
+</member>
+<member name="T:Tk.Framework.Utility.ISnapShot">
+ <summary>
+ スナップショットの基本的な機能を提供します。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Utility.ISnapShot.Reset">
+ <summary>
+ スナップショットをリセットします。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Utility.ISnapShot.Shot">
+ <summary>
+ スナップショットを保存します。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Utility.ISnapShot.Validate">
+ <summary>
+ 保存した値から変更があったか否かを検証します。
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Tk.Framework.Utility.ISnapShot.GetInstanse">
+ <summary>
+ スナップショットの対象となるインスタンスを取得します。
+ </summary>
+ <returns></returns>
+</member>
+<member name="T:Tk.Framework.Utility.Message.IMessageSet">
+ <summary>
+ メッセージボックスの値を定義します。
+ </summary>
+</member>
+<member name="P:Tk.Framework.Utility.Message.IMessageSet.Id">
+ <summary>
+ メッセージ固有のIDを取得または設定します。
+ </summary>
+ <value></value>
+ <returns></returns>
+</member>
+<member name="P:Tk.Framework.Utility.Message.IMessageSet.Text">
+ <summary>
+ メッセージのテキストを取得または設定します。
+ </summary>
+ <value></value>
+ <returns></returns>
+</member>
+<member name="P:Tk.Framework.Utility.Message.IMessageSet.Title">
+ <summary>
+ メッセージのタイトルを取得または設定します。
+ </summary>
+ <value></value>
+ <returns></returns>
+</member>
+<member name="P:Tk.Framework.Utility.Message.IMessageSet.Buttons">
+ <summary>
+ メッセージに表示するボタンを取得または設定します。
+ </summary>
+ <value></value>
+ <returns></returns>
+</member>
+<member name="P:Tk.Framework.Utility.Message.IMessageSet.Icon">
+ <summary>
+ メッセージに表示するアイコンを取得または設定します。
+ </summary>
+ <value></value>
+ <returns></returns>
+</member>
+<member name="P:Tk.Framework.Utility.Message.IMessageSet.DefaultButton">
+ <summary>
+ メッセージのデフォルトボタンを取得または設定します。
+ </summary>
+ <value></value>
+ <returns></returns>
+</member>
+<member name="P:Tk.Framework.Utility.Message.IMessageSet.Options">
+ <summary>
+ メッセージのオプションを取得または設定します。
+ </summary>
+ <value></value>
+ <returns></returns>
+</member>
+<member name="P:Tk.Framework.Utility.Message.IMessageSet.DisplayHelpButton">
+ <summary>
+ メッセージのヘルプボタンの表示を取得または設定します。
+ </summary>
+ <value></value>
+ <returns></returns>
+</member>
+<member name="T:Tk.Framework.Utility.Message.MessageCache">
+ <summary>
+ 一つのメッセージファイルに含まれる MessageSet クラスのシーケンスを定義します。
+ このクラスは継承できません。
+ </summary>
+</member>
+<member name="T:Tk.Framework.Utility.Message.MessageSet">
+ <summary>
+ メッセージボックスに表示する値を定義します。
+ このクラスは継承できません。
+ </summary>
+</member>
+<member name="F:Tk.Framework.Utility.Message.MessageSet.Empty">
+ <summary>
+ MessageSet クラスの空の値を取得します。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Utility.Message.MessageSet.#ctor">
+ <summary>
+ MessageSet クラスの新しいインスタンスを初期化します。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Utility.Message.MessageSet.Compare(Tk.Framework.Utility.Message.MessageSet,Tk.Framework.Utility.Message.MessageSet)">
+ <summary>
+ MessageSet クラスの大小を比較します。
+ </summary>
+ <param name="target1"></param>
+ <param name="target2"></param>
+ <returns></returns>
+</member>
+<member name="M:Tk.Framework.Utility.Message.MessageSet.Equals(System.Object)">
+ <summary>
+ 指定された MessageSet クラスのインスタンスと等しいかどうかを取得します。
+ </summary>
+ <param name="obj">比較するインスタンス。</param>
+ <returns>True:等しい。,False:等しくない。</returns>
+</member>
+<member name="P:Tk.Framework.Utility.Message.MessageSet.Id">
+ <summary>
+ メッセージ固有のIDを取得または設定します。
+ </summary>
+ <value></value>
+ <returns></returns>
+</member>
+<member name="P:Tk.Framework.Utility.Message.MessageSet.Text">
+ <summary>
+ メッセージのテキストを取得または設定します。
+ </summary>
+ <value></value>
+ <returns></returns>
+</member>
+<member name="P:Tk.Framework.Utility.Message.MessageSet.Title">
+ <summary>
+ メッセージのタイトルを取得または設定します。
+ </summary>
+ <value></value>
+</member>
+<member name="P:Tk.Framework.Utility.Message.MessageSet.Buttons">
+ <summary>
+ メッセージに表示するボタンを取得または設定します。
+ </summary>
+ <value></value>
+ <returns></returns>
+</member>
+<member name="P:Tk.Framework.Utility.Message.MessageSet.Icon">
+ <summary>
+ メッセージに表示するアイコンを取得または設定します。
+ </summary>
+ <value></value>
+ <returns></returns>
+</member>
+<member name="P:Tk.Framework.Utility.Message.MessageSet.DefaultButton">
+ <summary>
+ メッセージのデフォルトボタンを取得または設定します。
+ </summary>
+ <value></value>
+ <returns></returns>
+</member>
+<member name="P:Tk.Framework.Utility.Message.MessageSet.Options">
+ <summary>
+ メッセージのオプションを取得または設定します。
+ </summary>
+ <value></value>
+ <returns></returns>
+</member>
+<member name="P:Tk.Framework.Utility.Message.MessageSet.DisplayHelpButton">
+ <summary>
+ メッセージのヘルプボタンの表示を取得または設定します。
+ </summary>
+ <value></value>
+ <returns></returns>
+</member>
+<member name="M:Tk.Framework.Utility.Message.MessageSet.Clone">
+ <summary>
+ MessageSet クラスをコピーします。
+ </summary>
+ <returns>コピーした新しいインスタンス。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.Message.MessageSet.Equals(Tk.Framework.Utility.Message.IMessageSet)">
+ <summary>
+ 指定された MessageSet クラスのインスタンスと等しいかどうかを取得します。
+ </summary>
+ <param name="other">比較するインスタンス。</param>
+ <returns>True:等しい。,False:等しくない。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.Message.MessageSet.CompareTo(Tk.Framework.Utility.Message.IMessageSet)">
+ <summary>
+ 指定された MessageSet クラスのインスタンスと比較します。
+ </summary>
+ <param name="other"></param>
+ <returns></returns>
+</member>
+<member name="T:Tk.Framework.Utility.Message.MessageSetEqualityComparer">
+ <summary>
+ MessageSet クラスの一意となるキーを比較します。
+ </summary>
+</member>
+<member name="T:Tk.Framework.Utility.SnapShot">
+ <summary>
+ <c>ISnapShot</c> の補助機能を提供します。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Utility.SnapShot.ContainsChangedItem(System.Collections.Generic.IEnumerable{Tk.Framework.Utility.ISnapShot})">
+ <summary>
+ 変更があった要素が存在するか否かを取得します。
+ </summary>
+ <returns>True:変更があった。,False:変更がなかった。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.SnapShot.ShotOf(System.Collections.Generic.IEnumerable{Tk.Framework.Utility.ISnapShot},System.Object)">
+ <summary>
+ １つのインスタンスに対してスナップショットを実行します。
+ </summary>
+ <param name="target">スナップショットの対象となっているインスタンス。</param>
+</member>
+<member name="M:Tk.Framework.Utility.SnapShot.TryGetSnapShot(System.Collections.Generic.IEnumerable{Tk.Framework.Utility.ISnapShot},System.Object)">
+ <summary>
+ スナップショットの対象から、スナップショットのインスタンスを取得します。
+ </summary>
+ <param name="target">スナップショットの対象となっているインスタンス。</param>
+ <returns>スナップショットのインスタンス。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.SnapShot.GetChangedItems(System.Collections.Generic.IEnumerable{Tk.Framework.Utility.ISnapShot})">
+ <summary>
+ 変更があった要素を全て取得します。
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Tk.Framework.Utility.SnapShot.ShotAll(System.Collections.Generic.IEnumerable{Tk.Framework.Utility.ISnapShot})">
+ <summary>
+ 現在の全ての要素の状態を保存します。
+ </summary>
+</member>
+<member name="T:Tk.Framework.Utility.SnapShotBase`2">
+ <summary>
+ スナップショットの基本クラスを表します。
+ </summary>
+ <typeparam name="TParam"></typeparam>
+</member>
+<member name="P:Tk.Framework.Utility.SnapShotBase`2.Target">
+ <summary>
+ 対象となるオブジェクトを取得します。
+ </summary>
+ <value></value>
+ <returns></returns>
+</member>
+<member name="P:Tk.Framework.Utility.SnapShotBase`2.SaveParam">
+ <summary>
+ 保存したパラメーターを取得します。
+ </summary>
+ <value></value>
+ <returns></returns>
+</member>
+<member name="P:Tk.Framework.Utility.SnapShotBase`2.Comparer">
+ <summary>
+ 比較演算子を取得します。
+ </summary>
+ <value></value>
+ <returns></returns>
+</member>
+<member name="M:Tk.Framework.Utility.SnapShotBase`2.#ctor(`0)">
+ <summary>
+ SnapShot(Of T) クラスの新しいインスタンスを初期化します。
+ この呼び出しは、既定の比較演算子を使用します。
+ </summary>
+ <param name="target">対象とするオブジェクト。</param>
+</member>
+<member name="M:Tk.Framework.Utility.SnapShotBase`2.#ctor(`0,System.Collections.Generic.IEqualityComparer{`1})">
+ <summary>
+ SnapShot(Of T) クラスの新しいインスタンスを初期化します。
+ </summary>
+ <param name="target">対象とするオブジェクト。</param>
+ <param name="comparer">ショット前と後を比較する IEqualityComparer のインスタンス。</param>
+ <exception cref="T:System.ArgumentNullException">引数に null を指定した場合にスローします。</exception>
+</member>
+<member name="M:Tk.Framework.Utility.SnapShotBase`2.GetParameter">
+ <summary>
+ 現在のパラメータを取得します。
+ </summary>
+ <returns>現在のパラメータを返します。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.SnapShotBase`2.Shot">
+ <summary>
+ 現在の状態を保存します。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Utility.SnapShotBase`2.Validate">
+ <summary>
+ 保存済のパラメータと現在のパラメータを検証します。
+ </summary>
+ <returns>True:等価。,False:等価でない。もしくは保存をしていない。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.SnapShotBase`2.Reset">
+ <summary>
+ リセットします。
+ </summary>
+</member>
+<member name="T:Tk.Framework.Utility.StringBuilderCache">
+ <summary>
+ StringBuilder をキャッシュし、メモリ節約と実行速度向上を提供します。
+ </summary>
+</member>
+<member name="F:Tk.Framework.Utility.StringBuilderCache.MAX_BUILDER_SIZE">
+ <summary>
+ 360 Byte が最も効率の良い容量とのこと。
+ The value 360 was chosen in discussion with performance experts as a compromise between using
+ as litle memory (per thread) as possible and still covering a large part of short-lived
+ StringBuilder creations on the startup path of VS designers.
+ </summary>
+</member>
+<member name="F:Tk.Framework.Utility.StringBuilderCache.BuilderInstance">
+ <summary>
+ スレッド毎に一意なインスタンス。
+ </summary>
+</member>
+<member name="F:Tk.Framework.Utility.StringBuilderCache.DEFAULT_SIZE">
+ <summary>
+ StringBuilder のデフォルト容量。
+ FWからは見れないのでここでも宣言。
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:Tk.Framework.Utility.StringBuilderCache.Acquire(System.Int32)">
+ <summary>
+ キャッシュから適切な System.Text.StringBuilder のインスタンスを得ます。
+ </summary>
+ <param name="capacity">容量。</param>
+ <returns>適切な StringBuilder のインスタンスを返します。</returns>
+</member>
+<member name="M:Tk.Framework.Utility.StringBuilderCache.Release(System.Text.StringBuilder)">
+ <summary>
+ System.Text.StringBuilder のインスタンスを解放します。
+ </summary>
+ <param name="sb">対象となるインスタンス。</param>
+</member>
+<member name="M:Tk.Framework.Utility.StringBuilderCache.GetStringAndRelease(System.Text.StringBuilder)">
+ <summary>
+ System.Text.StringBuilder のインスタンスから System.String の取得とリソースの解放を同時に実行します。
+ </summary>
+ <param name="sb">対象となるインスタンス。</param>
+ <returns>文字列。</returns>
+</member>
+<member name="T:Tk.Framework.Utility.StringPair">
+ <summary>
+ 文字列の開始文字と終端文字がペアとなっている単純な形式を表します。
+ </summary>
+</member>
+<member name="F:Tk.Framework.Utility.StringPair._stringSum">
+ <summary>
+ 計算を一回で終わらせるための変数。
+ </summary>
+</member>
+<member name="P:Tk.Framework.Utility.StringPair.Start">
+ <summary>
+ 一連の様式の開始文字。
+ </summary>
+ <value></value>
+ <returns></returns>
+</member>
+<member name="P:Tk.Framework.Utility.StringPair.End">
+ <summary>
+ 一連の様式の終端文字。
+ </summary>
+ <value></value>
+ <returns></returns>
+</member>
+<member name="M:Tk.Framework.Utility.StringPair.#ctor(System.String,System.String)">
+ <summary>
+ StringPair クラスの新しいインスタンスを初期化します。
+ </summary>
+ <param name="start">開始文字。</param>
+ <param name="end">終端文字。</param>
+</member>
+<member name="M:Tk.Framework.Utility.StringPair.ToFormatString(System.Int32)">
+ <summary>
+ 開始文字と終端文字の既定の書式を返します。
+ </summary>
+ <param name="index">フォーマットのインデックス。</param>
+ <returns></returns>
+</member>
+<member name="M:Tk.Framework.Utility.StringPair.ToFormatString(System.Int32,System.String)">
+ <summary>
+ 開始文字と終端文字の既定の書式を返します。
+ </summary>
+ <param name="index">フォーマットのインデックス。</param>
+ <param name="custom">拡張文字列。</param>
+ <returns></returns>
+</member>
+<member name="M:Tk.Framework.Utility.StringPair.Extraction(System.String)">
+ <summary>
+ 文字列の開始文字と終端文字のペアを含む書式内で、最初に見つかった書式文字列を返します。
+ 入れ子になっている場合は、最上位の書式を返します。
+ また、ペアが含まれていない、もしくは入れ子となった書式の最上位が不正な場合は空文字を返します。
+ </summary>
+ <param name="value"></param>
+ <returns></returns>
+</member>
+<member name="T:Tk.Framework.Temp.InstancePool`2">
+ <summary>
+ インスタンスのプール機能を提供します。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Temp.InstancePool`2.#ctor(System.Int32)">
+ <summary>
+ <c>InstancePool</c> クラスの新しいインスタンスを生成します。
+ </summary>
+</member>
+<member name="M:Tk.Framework.Temp.InstancePool`2.TrimInstance">
+ <summary>
+ 最大容量を超えている場合に、インスタンスの数を調整します。
+ </summary>
+</member>
+<member name="T:Tk.Framework.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:Tk.Framework.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:Tk.Framework.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+</members>
+</doc>

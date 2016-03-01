@@ -1,0 +1,9 @@
+D:\Source\share\Tk.Framework\Tk.Framework\bin\Debug\Tk.Framework.dll
+D:\Source\share\Tk.Framework\Tk.Framework\bin\Debug\Tk.Framework.pdb
+D:\Source\share\Tk.Framework\Tk.Framework\bin\Debug\Tk.Framework.xml
+D:\Source\share\Tk.Framework\Tk.Framework\obj\Debug\Tk.Framework.Resources.resources
+D:\Source\share\Tk.Framework\Tk.Framework\obj\Debug\Tk.Framework.vbproj.GenerateResource.Cache
+D:\Source\share\Tk.Framework\Tk.Framework\obj\Debug\Tk.Framework.dll
+D:\Source\share\Tk.Framework\Tk.Framework\obj\Debug\Tk.Framework.xml
+D:\Source\share\Tk.Framework\Tk.Framework\obj\Debug\Tk.Framework.pdb
+D:\Source\share\Tk.Framework\Tk.Framework\obj\Debug\Tk.Framework.vbprojResolveAssemblyReference.cache

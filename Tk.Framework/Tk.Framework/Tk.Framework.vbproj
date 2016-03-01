@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{08FF929D-E4C4-40E9-93DB-25C88563C84C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Tk.Framework</RootNamespace>
+    <AssemblyName>Tk.Framework</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>Windows</MyType>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>Tk.Framework.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>Tk.Framework.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System.Threading.Tasks" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInternal\IniMethods.vb" />
+    <Compile Include="AssemblyInternal\NativeMethods.vb" />
+    <Compile Include="AssemblyInternal\ReflectionHelper.vb" />
+    <Compile Include="AssemblyInternal\ThrowHelper.vb" />
+    <Compile Include="AssemblyInternal\WindowMethods.vb" />
+    <Compile Include="Components\CBLDataGridView.InternalObjects.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Components\CBLDataGridView.Methods.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Components\CBLDataGridView.Properties.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Components\CBLDataGridView.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Components\DataGridViewCellRange.vb" />
+    <Compile Include="Components\DataGridViewCommander.vb" />
+    <Compile Include="Components\HighlightSplitContainer.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Components\ICblDataGridViewCellRangeSelection.vb" />
+    <Compile Include="Extensions\ArrayExtensions.vb" />
+    <Compile Include="Extensions\BooleanExtensions.vb" />
+    <Compile Include="Extensions\ByteExtensions.vb" />
+    <Compile Include="Extensions\CharExtensions.vb" />
+    <Compile Include="Extensions\ControlCollectionExtensions.vb" />
+    <Compile Include="Extensions\ControlExtensions.vb" />
+    <Compile Include="Extensions\DecimalExtensions.vb" />
+    <Compile Include="Extensions\DoubleExtensions.vb" />
+    <Compile Include="Extensions\EnumExtensions.vb" />
+    <Compile Include="Extensions\GenericExtensions.vb" />
+    <Compile Include="Extensions\ICollectionExtensions.vb" />
+    <Compile Include="Extensions\IDisposableExtensions.vb" />
+    <Compile Include="Extensions\IEnumerableOfStringExtensions.vb" />
+    <Compile Include="Extensions\IEnumerableOfTExtensions.vb" />
+    <Compile Include="Extensions\IntegerExtensions.vb" />
+    <Compile Include="Extensions\LongExtensions.vb" />
+    <Compile Include="Extensions\ObjectExtensions.vb" />
+    <Compile Include="Extensions\ShortExtensions.vb" />
+    <Compile Include="Extensions\StringBuilderExtensions.vb" />
+    <Compile Include="Extensions\StringExtensions.vb" />
+    <Compile Include="Utility\ActionScope%28Of T%29.vb" />
+    <Compile Include="Utility\ActionScope%28Of T, TParam%29.vb" />
+    <Compile Include="Utility\AggregationScope.vb" />
+    <Compile Include="Utility\CharPair.vb" />
+    <Compile Include="Utility\ClassService.vb" />
+    <Compile Include="Utility\CollectionService.vb" />
+    <Compile Include="Utility\ControlAssist\CheckBoxSnapShot.vb" />
+    <Compile Include="Utility\ControlAssist\CheckedListBoxSnapShot.vb" />
+    <Compile Include="Utility\ControlAssist\ComboBoxSnapShot.vb" />
+    <Compile Include="Utility\ControlAssist\ControlActionScope.vb" />
+    <Compile Include="Utility\ControlAssist\ControlHelper.vb" />
+    <Compile Include="Utility\ControlAssist\CursorScope.vb" />
+    <Compile Include="Utility\ControlAssist\EnabledScope.vb" />
+    <Compile Include="Utility\ControlAssist\LayoutLogicInAllChildrenScope.vb" />
+    <Compile Include="Utility\ControlAssist\LayoutLogicScope.vb" />
+    <Compile Include="Utility\ControlAssist\RadioButtonSnapShot.vb" />
+    <Compile Include="Utility\ControlAssist\TextBoxSnapShot.vb" />
+    <Compile Include="Utility\ControlAssist\UpdateScopeFactory.vb" />
+    <Compile Include="Utility\ControlAssist\VisibleScope.vb" />
+    <Compile Include="Utility\DateFormats\DateFormat.vb" />
+    <Compile Include="Utility\DateFormats\DatePeriod.vb" />
+    <Compile Include="Utility\DateFormats\IDateFormatter.vb" />
+    <Compile Include="Utility\DateFormats\StringDateFormatter.vb" />
+    <Compile Include="Utility\Documents\IRtfBuildable.vb" />
+    <Compile Include="Utility\Documents\RtfBuilder.vb" />
+    <Compile Include="Utility\EnumCustomAttributeCache.vb" />
+    <Compile Include="Utility\EnumerableSetvice.vb" />
+    <Compile Include="Utility\Events\EventDatum.vb" />
+    <Compile Include="Utility\Events\IEventDatum.vb" />
+    <Compile Include="Utility\Events\StandardEventAddHandlerScope.vb" />
+    <Compile Include="Utility\Events\StandardEventRemoveHandlerScope.vb" />
+    <Compile Include="Utility\Events\WindowsEventDatum.vb" />
+    <Compile Include="Utility\FieldIdLabelAttribute.vb" />
+    <Compile Include="Utility\FieldLabelAttribute.vb" />
+    <Compile Include="Utility\IActionScope.vb" />
+    <Compile Include="Utility\InstancePool.vb" />
+    <Compile Include="Utility\IntegerPair.vb" />
+    <Compile Include="Utility\ISnapShot.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Utility\Message\IMessageSet.vb" />
+    <Compile Include="Utility\Message\MessageHash.vb" />
+    <Compile Include="Utility\Message\MessageSet.vb" />
+    <Compile Include="Utility\Message\MessageSetEqualityComparer.vb" />
+    <Compile Include="Utility\SnapShot.vb" />
+    <Compile Include="Utility\SnapShotBase.vb" />
+    <Compile Include="Utility\StringBuilderCache.vb" />
+    <Compile Include="Utility\StringPair.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
